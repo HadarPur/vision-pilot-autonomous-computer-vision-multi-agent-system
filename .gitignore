@@ -5,3 +5,6 @@
 .idea/vision-pilot-autonomous-computer-vision-multi-agent-system.iml
 .idea/inspectionProfiles/profiles_settings.xml
 .idea/inspectionProfiles/Project_Default.xml
+yolov8n.pt
+agents/__pycache__/frame_ingestor.cpython-313.pyc
+agents/__pycache__/planner.cpython-313.pyc
