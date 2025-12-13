@@ -17,6 +17,7 @@ class FrameIngestorAgent:
 
     def __enter__(self):
         self.cap = cv2.VideoCapture(self.source)
+        print("Opening video source:", self.source)
         if not self.cap.isOpened():
             raise RuntimeError(f"Cannot open video source: {self.source}")
         return self

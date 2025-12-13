@@ -1,7 +1,7 @@
 # agents/anomaly.py
 from typing import List
 from core.types import SceneState, Anomaly, EventLog
-from core.config import SPEED_THRESHOLD, ZONES
+from core.config import SPEED_LIMIT_M_S, ACC_LIMIT_M_S2
 
 
 class AnomalyDetectorAgent:
@@ -14,14 +14,14 @@ class AnomalyDetectorAgent:
         # Speed-based anomaly
         for t in scene.tracks:
             attrs = scene.attributes.get(t.track_id, {})
-            speed = attrs.get("speed_px_per_frame", 0.0)
-            if speed > SPEED_THRESHOLD:
+            acc = attrs.get("accel_m_s2", 0.0)
+            if abs(acc) > ACC_LIMIT_M_S2:
                 anomalies.append(
                     Anomaly(
-                        kind="speeding",
+                        kind="abrupt_acceleration",
                         track_id=t.track_id,
-                        severity=min(1.0, speed / (SPEED_THRESHOLD * 2)),
-                        message=f"Track {t.track_id} moving fast: {speed:.1f} px/frame",
+                        severity=min(1.0, abs(acc) / ACC_LIMIT_M_S2),
+                        message=f"High acceleration: {acc:.2f} m/s²",
                         timestamp=scene.timestamp,
                     )
                 )

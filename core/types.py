@@ -24,16 +24,16 @@ class Detection:
     label: str        # e.g. "person", "car"
     detector_name: str = "stub"
 
-
 @dataclass
 class TrackedObject:
-    track_id: Optional[int]
+    track_id: int
     box: Box
     label: str
     score: float
     last_seen: float
-    history: List[Box] = field(default_factory=list)  # past boxes for velocity
 
+    history: List[Box] = field(default_factory=list)
+    velocity_history: List[float] = field(default_factory=list)
 
 @dataclass
 class SceneState:
