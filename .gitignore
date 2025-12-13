@@ -8,3 +8,11 @@
 yolov8n.pt
 agents/__pycache__/frame_ingestor.cpython-313.pyc
 agents/__pycache__/planner.cpython-313.pyc
+agents/__pycache__/anomaly.cpython-313.pyc
+agents/__pycache__/attributes.cpython-313.pyc
+agents/__pycache__/deepsort_tracker.cpython-313.pyc
+agents/__pycache__/detector.cpython-313.pyc
+agents/__pycache__/reporter.cpython-313.pyc
+agents/__pycache__/scene_understanding.cpython-313.pyc
+core/__pycache__/config.cpython-313.pyc
+core/__pycache__/types.cpython-313.pyc
