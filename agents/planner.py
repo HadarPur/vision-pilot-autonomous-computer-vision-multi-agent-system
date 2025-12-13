@@ -1,7 +1,8 @@
 # agents/planner.py
 from agents.frame_ingestor import FrameIngestorAgent
 from agents.detector import DetectorAgent
-from agents.tracker import TrackerAgent
+# from agents.tracker import TrackerAgent
+from agents.deepsort_tracker import DeepSortTrackerAgent
 from agents.attributes import AttributeAgent
 from agents.scene_understanding import SceneUnderstandingAgent
 from agents.anomaly import AnomalyDetectorAgent
@@ -13,7 +14,8 @@ class VisionPilotPlanner:
     def __init__(self, source=0):
         self.source = source
         self.detector = DetectorAgent()
-        self.tracker = TrackerAgent()
+        # self.tracker = TrackerAgent()
+        self.tracker = DeepSortTrackerAgent()
         self.attr_agent = AttributeAgent()
         self.scene_agent = SceneUnderstandingAgent()
         self.anomaly_agent = AnomalyDetectorAgent()
@@ -31,7 +33,12 @@ class VisionPilotPlanner:
                 h, w, _ = frame.image.shape
 
                 detections = self.detector.detect(frame)
-                tracks = self.tracker.update(detections, frame.timestamp)
+                # tracks = self.tracker.update(detections, frame.timestamp)
+                tracks = self.tracker.update(
+                    detections=detections,
+                    frame_image=frame.image,
+                    timestamp=frame.timestamp,
+                )
                 scene = self.attr_agent.compute(frame.index, frame.timestamp, tracks)
                 zone_info = self.scene_agent.enrich_scene(scene, w, h)
                 event = self.anomaly_agent.detect(scene, zone_info)
